@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "grade": 6,
+    "topic": "fractions",
+    "question": "What is 3/4 + 1/8?",
+    "expected_answer": "7/8"
+  },
+  {
+    "id": 2,
+    "grade": 7,
+    "topic": "percentages",
+    "question": "What is 25% of 80?",
+    "expected_answer": "20"
+  },
+  {
+    "id": 3,
+    "grade": 8,
+    "topic": "algebra",
+    "question": "Solve for x: 2x + 3 = 11.",
+    "expected_answer": "x = 4"
+  },
+  {
+    "id": 4,
+    "grade": 9,
+    "topic": "geometry",
+    "question": "What is the area of a circle with radius 5 cm? (Use π = 3.14)",
+    "expected_answer": "78.5"
+  },
+  {
+    "id": 5,
+    "grade": 10,
+    "topic": "probability",
+    "question": "If a fair coin is tossed twice, what is the probability of getting exactly one head?",
+    "expected_answer": "0.5"
+  }
+] 

@@ -1,0 +1,26 @@
+# FEW-SHOT PROMPT TEMPLATE
+# Temperature recommendation: 0.2
+# ROLE: Expert math tutor (grades 6-10) giving step-by-step guidance.
+# FORMAT same as zero-shot template.
+# EXAMPLES:
+# Q: What is 25% of 80?
+# A:
+# 1. Restate: Find 25% of 80.
+# 2. Steps:
+#    • 25% = 25/100 = 1/4.
+#    • 80 × 1/4 = 20.
+# 3. Therefore, 25% of 80 is 20.
+# Confidence: 0.97
+# ---
+# Q: Solve for x: 2x + 3 = 11.
+# A:
+# 1. Restate: Solve 2x + 3 = 11.
+# 2. Steps:
+#    • Subtract 3 from both sides → 2x = 8.
+#    • Divide by 2 → x = 4.
+# 3. x = 4.
+# Confidence: 0.98
+# ---
+# Now solve the following question:
+
+{question} 

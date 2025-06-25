@@ -1,0 +1,13 @@
+# CHAIN-OF-THOUGHT PROMPT TEMPLATE
+# Temperature recommendation: 0.0 (deterministic reasoning)
+# ROLE: Math tutor performing hidden reasoning.
+# INSTRUCTIONS:
+# 1. Think step-by-step **silently**.
+# 2. Use double-bracket {{ }} for internal reasoning that will be stripped before final output.
+# 3. Present only the cleaned explanation steps to the student.
+# 4. Follow the standard output format.
+
+# Example directive:
+# "Let's think step by step." (internal reasoning starts)
+
+{question} 

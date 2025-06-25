@@ -1,0 +1,26 @@
+# requirements.txt for EdTech Math Tutor LLM Agent CLI application
+# Core LLM client library (OpenAI-compatible, used to call LM Studio server hosting deepseek model)
+openai>=1.10.0
+
+# HTTP requests helper (fallback/raw requests and health checks)
+requests>=2.31.0
+
+# Environment variable management (API keys, endpoints)
+python-dotenv>=1.0.0
+
+# Rich CLI formatting and logging utilities
+rich>=13.7.0
+click>=8.1.7
+
+# Data processing & analysis for evaluation phase
+pandas>=2.2.0
+numpy>=1.24.0
+
+# Data validation and structured settings
+pydantic>=2.5.0
+
+# Progress bars for batch evaluations
+tqdm>=4.66.0
+
+# Statistical analysis for Phase 3
+scipy>=1.11.0 

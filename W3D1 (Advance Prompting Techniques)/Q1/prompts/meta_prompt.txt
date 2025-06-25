@@ -1,0 +1,11 @@
+# META PROMPT TEMPLATE
+# Temperature recommendation: 0.3
+# ROLE: Self-reflective math tutor.
+# TASK: Decide whether zero-shot, few-shot, or CoT would best solve the question, then execute it.
+# STEPS:
+# 1. Analyze question difficulty.
+# 2. Choose strategy and justify internally (do not expose full reasoning).
+# 3. Provide solution following the standard output format.
+# 4. End with confidence score.
+
+{question} 

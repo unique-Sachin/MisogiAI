@@ -1,0 +1,139 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# EdTech Math Tutor LLM Agent - Cursor Rules
+
+## Project Context
+You are helping build a domain-specific LLM-based math tutoring agent for students in grades 6-10. This is a CLI-based application using deepseek/deepseek-r1-0528-qwen3-8b via LM Studio for prompt engineering research and evaluation.
+
+## Project Structure Requirements
+```
+├── README.md (project overview, setup instructions, findings)
+├── domain_analysis.md (understanding of domain tasks)
+├── prompts/
+│   ├── zero_shot.txt
+│   ├── few_shot.txt
+│   ├── cot_prompt.txt
+│   └── meta_prompt.txt
+├── evaluation/
+│   ├── input_queries.json
+│   ├── output_logs.json
+│   └── analysis_report.md
+├── src/
+│   ├── main.py
+│   └── utils.py (optional helpers)
+└── hallucination_log.md (examples of failure cases)
+```
+
+## Code Generation Guidelines
+
+### When creating Python files:
+- Use Python 3.8+ compatible syntax
+- Include proper error handling for LLM API calls
+- Add comprehensive docstrings for all functions
+- Include type hints where applicable
+- Log all interactions for evaluation purposes
+- Handle API timeouts and connection issues gracefully
+
+### When creating prompt files (.txt):
+- Start each prompt with clear role definition
+- Include specific constraints to prevent hallucination
+- Add explicit instructions for mathematical accuracy
+- Include fallback behaviors for ambiguous inputs
+- Specify output format requirements
+- Add temperature and parameter recommendations as comments
+
+### When creating evaluation files:
+- Use JSON format for structured data (input_queries.json, output_logs.json)
+- Include metadata: timestamp, model version, prompt type used
+- Structure test queries by grade level (6-10) and math topics
+- Include expected outputs with verified solutions
+- Add confidence scores and reasoning quality metrics
+
+## Domain-Specific Requirements
+
+### Math Tutor Capabilities:
+- Handle arithmetic, algebra, geometry, statistics for grades 6-10
+- Provide step-by-step problem solving
+- Explain mathematical concepts clearly
+- Identify and correct student misconceptions
+- Adapt difficulty based on student responses
+
+### Anti-Hallucination Measures:
+- Always request step-by-step verification
+- Include "I don't know" fallback options
+- Require citation of mathematical principles used
+- Add confidence indicators to responses
+- Implement input validation for mathematical expressions
+
+### Test Query Categories:
+1. **Basic Arithmetic**: fractions, decimals, percentages
+2. **Algebra**: linear equations, quadratic equations, factoring
+3. **Geometry**: area, perimeter, angles, theorems
+4. **Statistics**: mean, median, mode, probability basics
+5. **Word Problems**: multi-step real-world applications
+
+## Implementation Priorities
+
+### Phase 1 - Core Structure:
+- Set up project directory structure exactly as shown
+- Create basic CLI interface with LM Studio integration
+- Implement logging and evaluation framework
+
+### Phase 2 - Prompt Engineering:
+- Develop and test all 4 prompt types (zero-shot, few-shot, CoT, meta)
+- Create fallback mechanisms for ambiguous inputs
+- Build automated testing pipeline
+
+### Phase 3 - Evaluation:
+- Run comparative analysis across prompt types
+- Document hallucination patterns
+- Generate performance metrics and recommendations
+## Code Quality Standards
+- All mathematical calculations must be verifiable
+- Include unit tests for utility functions
+- Add input validation for all user inputs
+- Implement graceful error handling
+- Use meaningful variable names and comments
+- Follow PEP 8 style guidelines
+
+## Documentation Requirements
+- README.md must include setup instructions and key findings
+- Each prompt file needs usage examples and parameter recommendations
+- Code comments should explain prompt engineering decisions
+- Analysis reports must include quantitative comparisons
+- All test cases need expected vs actual output documentation
+
+## Constraints
+- Use ONLY the specified LLM model (deepseek/deepseek-r1-0528-qwen3-8b)
+- Focus exclusively on grades 6-10 mathematics curriculum
+- Maintain compatibility with LM Studio API
+- Ensure all outputs are educationally appropriate
+- Prioritize mathematical accuracy over creative responses
+
+## File-Specific Instructions
+
+### For main.py:
+- Implement CLI argument parsing
+- Add prompt type selection functionality
+- Include comprehensive logging
+- Handle LM Studio API integration
+- Implement evaluation pipeline automation
+
+### For prompt files:
+- Include temperature suggestions in comments
+- Add example inputs/outputs
+- Specify token length recommendations
+- Include fallback instructions
+- Document optimization rationale
+
+### For evaluation files:
+- Use consistent JSON schema
+- Include metadata for reproducibility
+- Add manual hallucination scoring rubric
+- Document edge cases and failures
+- Include statistical significance testing
+
+Remember: This is a research project focused on prompt engineering effectiveness. Prioritize measurable comparisons and documentation of findings over feature completeness.
