@@ -1,0 +1,122 @@
+[
+  {
+    "problem": "Knights and Knaves: A says, 'At least one of us is a knave.' B says nothing. Who is the knight?",
+    "answer": "A is knight, B is knave",
+    "difficulty": "easy",
+    "source": "Generated sample"
+  },
+  {
+    "problem": "You meet two guards, one always lies and one always tells the truth. You can ask one guard one yes/no question to find the safe path. What question do you ask?",
+    "answer": "Ask either guard: 'If I asked the other guard which door is safe, what would he say?' Then take the opposite door.",
+    "difficulty": "medium",
+    "source": "Classic logic puzzle"
+  },
+  {
+    "problem": "In a family of two parents and three children, each child has at least one sister. How many boys are there?",
+    "answer": "2 boys",
+    "difficulty": "easy",
+    "source": "Generated sample"
+  },
+  {
+    "problem": "A farmer must cross a river with a fox, a goose, and a bag of beans. His boat can carry only himself and one item at a time. The fox can't be left alone with the goose, and the goose can't be left alone with the beans. How can he get all three across? (Give the sequence)",
+    "answer": "Take goose over, return alone, take fox over, bring goose back, take beans over, return alone, take goose over.",
+    "difficulty": "medium",
+    "source": "Classic river crossing"
+  },
+  {
+    "problem": "Three boxes are labelled 'APPLES', 'ORANGES', and 'APPLES & ORANGES' but each label is wrong. You may open one box and look at one piece of fruit. How do you relabel correctly?",
+    "answer": "Open the 'APPLES & ORANGES' box; whatever fruit is inside belongs there exclusively. Use deduction to relabel the others.",
+    "difficulty": "medium",
+    "source": "Classic mislabeled boxes"
+  },
+  {
+    "problem": "There are five houses in a row, each with a different color and resident. The Englishman lives in the red house; the Spaniard owns a dog; coffee is drunk in the green house; etc. (Einstein's riddle simplified). Who owns the fish?",
+    "answer": "German",
+    "difficulty": "hard",
+    "source": "Einstein's riddle"
+  },
+  {
+    "problem": "A digital clock reads 3:15. What is the angle between the hour and minute hands? (in degrees)",
+    "answer": "7.5",
+    "difficulty": "easy",
+    "source": "Generated sample"
+  },
+  {
+    "problem": "A prisoner has two doors, one leads to freedom, the other to death. Two guards stand by, one always lies, the other always tells the truth. You may ask one guard one question that can be any yes/no question. What do you ask to find the door to freedom?",
+    "answer": "Same as classic: 'If I were to ask the other guard which door leads to freedom, would he say this door?' then choose opposite",
+    "difficulty": "medium",
+    "source": "Classic puzzle"
+  },
+  {
+    "problem": "You have 12 identical-looking coins, one is counterfeit and either lighter or heavier. Using a balance scale three times, can you identify the counterfeit coin and whether it is lighter or heavier? (Answer yes/no)",
+    "answer": "Yes",
+    "difficulty": "hard",
+    "source": "Classic 12-coin puzzle"
+  },
+  {
+    "problem": "A man is looking at a photograph. Someone asks, 'Whose picture are you looking at?' He replies, 'Brothers and sisters have I none, but that man's father is my father's son.' Who is in the photograph?",
+    "answer": "His son",
+    "difficulty": "easy",
+    "source": "Classic puzzle"
+  },
+  {
+    "problem": "Three light switches outside a closed room each correspond to one of three bulbs inside. You can enter the room only once. How do you determine which switch controls which bulb?",
+    "answer": "Turn on switch 1 for a few minutes then off, turn on switch 2, enter room: lit bulb=switch2, warm bulb=switch1, cold bulb=switch3",
+    "difficulty": "medium",
+    "source": "Classic puzzle"
+  },
+  {
+    "problem": "Four people need to cross a bridge at night with one flashlight. Only two can cross at a time and they move at 1, 2, 7, and 10 minutes respectively. What's the minimum total time for all to cross?",
+    "answer": "17",
+    "difficulty": "hard",
+    "source": "Classic bridge crossing"
+  },
+  {
+    "problem": "Sudoku: In a standard 9x9 Sudoku, how many clues (pre-filled numbers) are required to guarantee a unique solution?",
+    "answer": "17",
+    "difficulty": "hard",
+    "source": "Mathematical result"
+  },
+  {
+    "problem": "You have a 3-liter and a 5-liter jug and unlimited water. Measure exactly 4 liters.",
+    "answer": "Fill 5L, pour into 3L (2L left). Empty 3L, pour remaining 2L into 3L jug, fill 5L, pour into 3L until full leaving 4L in 5L jug.",
+    "difficulty": "easy",
+    "source": "Classic water jug"
+  },
+  {
+    "problem": "In a certain town, 85% of the people are honest. A court uses a lie detector that is 80% accurate (it reports truth or lie). If a randomly selected statement was reported as a lie, what is the probability it was actually a lie? (nearest percent)",
+    "answer": "26",
+    "difficulty": "hard",
+    "source": "Bayes theorem example"
+  },
+  {
+    "problem": "Two fathers and two sons go fishing. Each catches one fish, yet only three fish are caught. How is this possible?",
+    "answer": "They are grandfather, father, and son",
+    "difficulty": "easy",
+    "source": "Classic puzzle"
+  },
+  {
+    "problem": "A census taker asks a mother about her children. She says, 'I have three daughters. The product of their ages is 36 and the sum of their ages is the house number next door.' After looking at the house number, the census taker still can't determine their ages. The mother then says, 'My eldest daughter plays piano.' What are the daughters' ages?",
+    "answer": "9, 2, 2",
+    "difficulty": "hard",
+    "source": "Henry Dudeney puzzle"
+  },
+  {
+    "problem": "You have eight balls of equal size; one is heavier. Using a balance scale twice, can you find the heavier ball? (answer yes/no)",
+    "answer": "Yes",
+    "difficulty": "medium",
+    "source": "Classic 8-ball puzzle"
+  },
+  {
+    "problem": "In a party, everyone shook hands with everyone else. There were 66 handshakes in total. How many people were at the party?",
+    "answer": "12",
+    "difficulty": "medium",
+    "source": "Combinatorics"
+  },
+  {
+    "problem": "A liar paradox: A says 'B is a liar.' B says 'A and I are both liars.' Who is telling the truth?",
+    "answer": "A tells truth, B lies",
+    "difficulty": "hard",
+    "source": "Generated sample"
+  }
+] 

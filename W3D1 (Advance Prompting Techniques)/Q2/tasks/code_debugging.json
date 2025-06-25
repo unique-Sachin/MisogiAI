@@ -1,0 +1,128 @@
+[
+  {
+    "problem": "The following code should print numbers 0 to 4 but prints 0 to 5. Fix it.\n\n```python\nfor i in range(6):\n    print(i)\n```",
+    "answer": "Change range(6) to range(5)",
+    "difficulty": "easy",
+    "source": "Generated sample"
+  },
+  {
+    "problem": "The function is supposed to return the square of a number but returns None.\n\n```python\ndef square(x):\n    result = x * x\n```",
+    "answer": "Add `return result` at end of function",
+    "difficulty": "easy",
+    "source": "Generated sample"
+  },
+  {
+    "problem": "Why does this code raise a ZeroDivisionError? Fix it.\n\n```python\nnums = [1,2,3]\navg = sum(nums) / len([])\n```",
+    "answer": "Use len(nums) instead of len([])",
+    "difficulty": "easy",
+    "source": "Generated sample"
+  },
+  {
+    "problem": "This recursive factorial implementation causes maximum recursion depth exceeded for input 0. Fix it.\n\n```python\ndef fact(n):\n    return n * fact(n-1)\n```",
+    "answer": "Add base case: if n==0: return 1",
+    "difficulty": "medium",
+    "source": "Generated sample"
+  },
+  {
+    "problem": "The code attempts to open a file but throws FileNotFoundError. Suggest a fix.\n\n```python\nwith open('data.txt', 'r') as f:\n    data = f.read()\n```",
+    "answer": "Ensure data.txt exists or use correct path / handle exception",
+    "difficulty": "easy",
+    "source": "Generated sample"
+  },
+  {
+    "problem": "Why does this code print [5,5,5]? Fix it.\n\n```python\nlist_of_lists = [[]]*3\nfor sub in list_of_lists:\n    sub.append(5)\nprint(list_of_lists)\n```",
+    "answer": "Use list comprehension so each sublist is independent: `list_of_lists = [[] for _ in range(3)]`",
+    "difficulty": "medium",
+    "source": "Generated sample"
+  },
+  {
+    "problem": "This code is supposed to remove even numbers but removes nothing. Why?\n\n```python\nnums = [1,2,3,4]\nfor n in nums:\n    if n%2==0:\n        nums.remove(n)\nprint(nums)\n```",
+    "answer": "Iterating while mutating list skips elements. Iterate over copy or use list comprehension",
+    "difficulty": "medium",
+    "source": "Generated sample"
+  },
+  {
+    "problem": "Fix the syntax error.\n\n```python\nprint 'Hello'\n```",
+    "answer": "Add parentheses: `print('Hello')`",
+    "difficulty": "easy",
+    "source": "Generated sample"
+  },
+  {
+    "problem": "The code returns 'NoneType' object is not iterable. Identify bug.\n\n```python\nitems = None\nfor x in items:\n    print(x)\n```",
+    "answer": "items should be a list, not None",
+    "difficulty": "easy",
+    "source": "Generated sample"
+  },
+  {
+    "problem": "Why does this code output 0 instead of 10? Fix it.\n\n```python\nvalue = 10\n def foo():\n    print(value)\nvalue = 0\nfoo()\n```",
+    "answer": "Indentation error and variable reassignment; define function before changing value or use default arg",
+    "difficulty": "medium",
+    "source": "Generated sample"
+  },
+  {
+    "problem": "This code intends to read lines into a list but ends with empty list.\n\n```python\nwith open('file.txt') as f:\n    lines = lines.append(f.readlines())\n```",
+    "answer": "append returns None; use lines = f.readlines() or list comprehension",
+    "difficulty": "medium",
+    "source": "Generated sample"
+  },
+  {
+    "problem": "Explain why this equality check fails.\n\n```python\n0.1 + 0.2 == 0.3\n```",
+    "answer": "Floating-point precision issue; use math.isclose() instead",
+    "difficulty": "easy",
+    "source": "Generated sample"
+  },
+  {
+    "problem": "The list comprehension throws NameError. Fix it.\n\n```python\nnums = [1,2,3]\nnew = [n for n in numbers]\n```",
+    "answer": "Use nums instead of numbers",
+    "difficulty": "easy",
+    "source": "Generated sample"
+  },
+  {
+    "problem": "Why does this default argument accumulate values? Fix it.\n\n```python\ndef add_item(item, container=[]):\n    container.append(item)\n    return container\n```",
+    "answer": "Use None default and create list inside",
+    "difficulty": "medium",
+    "source": "Generated sample"
+  },
+  {
+    "problem": "The code aims to sort list of tuples by second element but fails. Fix it.\n\n```python\ndata = [(1,3),(2,1),(3,2)]\ndata.sort(key=lambda x: x[1])\nprint(data)\n```",
+    "answer": "Actually correct; perhaps key missing parentheses; Provided code works",
+    "difficulty": "easy",
+    "source": "Generated sample"
+  },
+  {
+    "problem": "Why does this code raise TypeError: unsupported operand types?\n\n```python\nprint('5' + 3)\n```",
+    "answer": "String and int concatenation; convert 3 to string or 5 to int",
+    "difficulty": "easy",
+    "source": "Generated sample"
+  },
+  {
+    "problem": "Refactor this code to use list comprehension.\n\n```python\nevens = []\nfor n in range(10):\n    if n%2==0:\n        evens.append(n)\n```",
+    "answer": "evens = [n for n in range(10) if n%2==0]",
+    "difficulty": "easy",
+    "source": "Generated sample"
+  },
+  {
+    "problem": "The script should print 'Hello' five times but prints once. Fix it.\n\n```python\nfor _ in range(5):\n    print('Hello')\n    break\n```",
+    "answer": "Remove break statement",
+    "difficulty": "easy",
+    "source": "Generated sample"
+  },
+  {
+    "problem": "This generator should yield squares but stops after first yield.\n\n```python\ndef squares(n):\n    for i in range(n):\n        yield i*i\n        return\n```",
+    "answer": "Remove return inside loop",
+    "difficulty": "medium",
+    "source": "Generated sample"
+  },
+  {
+    "problem": "Why does this code output 1 instead of 4? Fix it.\n\n```python\nnums = [1,2,3]\nprint(len(nums[-1]))\n```",
+    "answer": "nums[-1] is int 3; can't take len; perhaps want len(nums) which is 3 or len(str(nums[-1]))",
+    "difficulty": "easy",
+    "source": "Generated sample"
+  },
+  {
+    "problem": "Fix the NameError in the following code.\n\n```python\nprint(total)\ntotal = 10\n```",
+    "answer": "Define variable before use",
+    "difficulty": "easy",
+    "source": "Generated sample"
+  }
+] 

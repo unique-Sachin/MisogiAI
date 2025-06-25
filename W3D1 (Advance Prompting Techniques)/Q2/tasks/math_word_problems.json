@@ -4,5 +4,17 @@
     "answer": "60",
     "difficulty": "easy",
     "source": "Generated sample"
+  },
+  {
+    "problem": "A car travels 150 km in 3 hours. What is its average speed in km/h?",
+    "answer": "50",
+    "difficulty": "easy",
+    "source": "Generated sample"
+  },
+  {
+    "problem": "John buys 3 apples at $0.50 each and 2 oranges at $0.80 each. How much does he spend in dollars?",
+    "answer": "3.1",
+    "difficulty": "easy",
+    "source": "Generated sample"
   }
 ] 

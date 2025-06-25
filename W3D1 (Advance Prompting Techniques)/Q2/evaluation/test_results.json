@@ -1,0 +1,9 @@
+{
+  "task_0": {
+    "accuracy": 0.0,
+    "reasoning_coherence": 1.0,
+    "consistency_score": 0.4,
+    "aggregated_answer": "The average speed of the train is approximately 60 km/h.",
+    "ground_truth": "60"
+  }
+}
