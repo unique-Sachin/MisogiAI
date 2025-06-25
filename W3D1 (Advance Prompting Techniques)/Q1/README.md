@@ -79,3 +79,35 @@ Examples of failure or truncation are documented in `hallucination_log.md`.  Ple
 * Add `tests/` suite with `pytest` for utility functions.
 * Implement ambiguity-detection fallback ("Could you clarify…?").
 * Generate visual plots of accuracy trends. 
+
+## Multi-model experiments
+
+Although the default configuration targets `deepseek/deepseek-r1-0528-qwen3-8b`, any model that is loadable in LM Studio's OpenAI-compatible server can be evaluated the **same way**.
+
+1. Start LM Studio with an alternate model (e.g. `microsoft/phi-4-reasoning-plus`).
+2. Export an override before running the CLI:
+
+   ```bash
+   export LM_MODEL_NAME="microsoft/phi-4-reasoning-plus"
+   ```
+   
+   If the server is on a non-default port, also update `LM_STUDIO_BASE_URL`.
+3. Run `src.main`, `src.evaluator`, or `src.analyzer` as usual.
+
+Every interaction carries a `model` field that is stored in `evaluation/output_logs.json`; evaluation snapshots therefore track **prompt type _and_ model**, allowing cross-model comparisons in the aggregated analysis.
+
+To compare models:
+```bash
+# deepseek run
+export LM_MODEL_NAME="deepseek/deepseek-r1-0528-qwen3-8b"
+python -m src.evaluator --input evaluation/input_queries.json
+
+# phi-4 run
+export LM_MODEL_NAME="microsoft/phi-4-reasoning-plus"
+python -m src.evaluator --input evaluation/input_queries.json
+
+# consolidate and analyse across both runs
+python -m src.analyzer --results_dir evaluation
+```
+
+Significance tests in `analysis_report.md` will reflect combined data; you can filter by model later if desired. 
