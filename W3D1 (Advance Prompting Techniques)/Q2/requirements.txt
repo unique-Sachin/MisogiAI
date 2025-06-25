@@ -1,0 +1,14 @@
+# Requirements for Advanced Prompt Engineering Pipeline
+openai>=1.12.0
+tiktoken>=0.5.1
+transformers>=4.39.0
+torch>=2.1.2
+accelerate>=0.26.1
+networkx>=3.2.1
+numpy>=1.26.4
+pandas>=2.2.2
+scikit-learn>=1.4.0
+python-dotenv>=1.0.1
+loguru>=0.7.2
+rich>=13.7.0
+pytest>=8.0.0 

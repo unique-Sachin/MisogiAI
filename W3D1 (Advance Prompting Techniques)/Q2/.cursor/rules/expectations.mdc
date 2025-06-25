@@ -1,0 +1,241 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Cursor AI Rules - Advanced Reasoning Pipeline
+
+## Project Context
+You are building an advanced prompt engineering pipeline that implements:
+- Tree-of-Thought (ToT) reasoning that allows LMs to perform deliberate decision making by considering multiple different reasoning paths
+- Self-Consistency that leverages multiple reasoning paths to reach correct answers
+- OPRO-style automated prompt optimization with feedback loops
+
+## Verified Technical Foundation
+
+### Tree-of-Thought Implementation
+Based on the original ToT paper (arxiv.org/abs/2305.10601) which achieved 74% success rate vs 4% with standard chain-of-thought:
+
+**Core Algorithm Requirements:**
+- Maintain a tree of thoughts where thoughts represent coherent language sequences that serve as intermediate steps toward solving a problem
+- Combine LM's ability to generate and evaluate thoughts with search algorithms (breadth-first search and depth-first search)
+- Implement branch → evaluate → prune methodology
+- Enable systematic exploration with lookahead and backtracking
+
+### Self-Consistency Implementation  
+Based on Self-Consistency paper (arxiv.org/abs/2203.11171) which samples multiple, diverse reasoning paths and selects the most consistent answer:
+
+**Algorithm Requirements:**
+- Generate N=3-5 reasoning paths per query
+- Use few-shot CoT with diverse reasoning paths
+- Apply majority vote or consensus mechanism
+- Improve naive greedy decoding by sampling multiple diverse reasoning paths
+
+## Project Structure (STRICT ADHERENCE)
+```
+├── README.md (setup, pipeline usage, dependencies)
+├── tasks/ (problem definitions with verified solutions)
+│   ├── math_word_problems.json
+│   ├── logic_puzzles.json
+│   ├── code_debugging.json
+│   └── task_definitions.md
+├── prompts/ (initial + optimized prompts)
+│   ├── base_prompts/
+│   │   ├── tot_system_prompt.txt
+│   │   ├── self_consistency_prompt.txt
+│   │   └── evaluation_prompt.txt
+│   ├── optimized_prompts/
+│   │   └── [versioned prompt files]
+│   └── meta_optimizer_prompt.txt
+├── src/ (pipeline code)
+│   ├── main.py
+│   ├── tot_engine.py
+│   ├── self_consistency.py
+│   ├── prompt_optimizer.py
+│   └── utils.py
+├── logs/ (reasoning paths, optimizations)
+│   ├── reasoning_trees/
+│   ├── optimization_history/
+│   └── performance_logs/
+└── evaluation/ (metrics + reflection)
+    ├── test_results.json
+    ├── metrics_analysis.py
+    └── reflection_report.md
+```
+
+## Domain Task Requirements (NO FABRICATION)
+
+### Part 1: Domain Selection (5-7 Tasks)
+Choose from these VERIFIED domains:
+1. **Multi-step Math Word Problems** (Grade 6-12 curriculum standards)
+2. **Logic Puzzles** (Knights and Knaves, Sudoku, Logic Grid puzzles)
+3. **Code Debugging** (Python syntax/logic errors with known solutions)
+4. **Mathematical Proof Steps** (Geometry proofs, algebraic manipulations)
+5. **Planning Problems** (Resource allocation, scheduling)
+
+**For each task, provide:**
+- Problem statement with specific difficulty level
+- Step-by-step verified solution with reasoning
+- Source reference (textbook, established puzzle database, or documentation)
+- Expected input/output format specifications
+
+## Implementation Requirements
+
+### Tree-of-Thought Engine (`src/tot_engine.py`)
+```python
+class ToTEngine:
+    def __init__(self, llm_client, max_depth=3, branch_factor=3):
+        # Initialize with local LLM connection
+        
+    def generate_thoughts(self, problem, current_state):
+        # Generate N candidate next thoughts
+        
+    def evaluate_thoughts(self, thoughts, problem_context):
+        # Score each thought for quality/relevance
+        
+    def search_tree(self, problem, strategy='bfs'):
+        # Implement BFS/DFS with pruning
+        
+    def get_solution_paths(self):
+        # Return all valid reasoning paths
+```
+
+### Self-Consistency Aggregator (`src/self_consistency.py`)
+```python
+class SelfConsistency:
+    def __init__(self, num_paths=5):
+        # Configure multiple reasoning attempts
+        
+    def generate_multiple_solutions(self, problem, prompt_template):
+        # Generate N diverse reasoning paths
+        
+    def aggregate_answers(self, solutions):
+        # Implement majority vote or consensus logic
+        
+    def calculate_consistency_score(self, solutions):
+        # Measure agreement between solutions
+```
+
+### Prompt Optimizer (`src/prompt_optimizer.py`)
+```python
+class PromptOptimizer:
+    def __init__(self, base_prompts, evaluation_metrics):
+        # Initialize with baseline prompts
+        
+    def detect_failures(self, results):
+        # Identify low accuracy, inconsistencies, hallucinations
+        
+    def generate_optimized_prompt(self, failure_analysis):
+        # Use meta-prompt to suggest improvements
+        
+    def track_improvements(self, old_prompt, new_prompt, metrics):
+        # Version control and performance tracking
+```
+
+## Evaluation Metrics (QUANTIFIABLE ONLY)
+
+### Required Measurements:
+1. **Task Accuracy**: `(correct_final_answers / total_queries) × 100`
+2. **Reasoning Coherence**: 5-point rubric with specific criteria:
+   - 5: Logically sound, all steps justified
+   - 4: Minor logical gaps, mostly sound
+   - 3: Some logical inconsistencies
+   - 2: Major logical flaws
+   - 1: Incoherent reasoning
+3. **Hallucination Rate**: `(factually_incorrect_statements / total_statements) × 100`
+4. **Consistency Score**: Agreement percentage across multiple runs
+5. **Optimization Improvement**: `((new_accuracy - old_accuracy) / old_accuracy) × 100`
+
+### Performance Benchmarks:
+- Minimum 20 test queries per domain
+- Baseline comparison with standard prompting
+- Statistical significance testing (p < 0.05)
+
+## Code Quality Standards
+
+### Error Handling:
+```python
+try:
+    response = await llm_client.generate(prompt, max_tokens=1000, temperature=0.7)
+    if not response or len(response.strip()) == 0:
+        raise ValueError("Empty response from LLM")
+except TimeoutError:
+    logger.error("LLM request timed out")
+    return None
+except Exception as e:
+    logger.error(f"LLM generation failed: {str(e)}")
+    return None
+```
+
+### Logging Requirements:
+```python
+import logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+# Log all reasoning steps
+logger.info(f"Generated {len(thoughts)} thoughts for problem: {problem_id}")
+logger.debug(f"Thought evaluation scores: {scores}")
+```
+
+### Type Hints and Documentation:
+```python
+from typing import List, Dict, Optional, Tuple
+from dataclasses import dataclass
+
+@dataclass
+class ReasoningPath:
+    steps: List[str]
+    confidence_score: float
+    final_answer: str
+    
+def evaluate_solution_quality(
+    solution: str, 
+    ground_truth: str, 
+    reasoning_steps: List[str]
+) -> Tuple[float, Dict[str, float]]:
+    """
+    Evaluate solution quality against ground truth.
+    
+    Args:
+        solution: Generated solution
+        ground_truth: Verified correct answer  
+        reasoning_steps: List of reasoning steps taken
+        
+    Returns:
+        Tuple of (accuracy_score, detailed_metrics)
+    """
+```
+
+## Research Citation Requirements
+
+### Primary Sources (REQUIRED):
+- Tree-of-Thought: Yao et al. (2023) "Tree of Thoughts: Deliberate Problem Solving with Large Language Models" arXiv:2305.10601
+- Self-Consistency: Wang et al. (2022) "Self-Consistency Improves Chain of Thought Reasoning in Language Models" arXiv:2203.11171
+- Reference implementation: Princeton NLP Tree-of-Thought GitHub repository
+
+### Implementation Notes:
+- Document any deviations from original algorithms
+- Cite specific equations or procedures adapted
+- Include performance comparisons with published results
+
+## Forbidden Actions
+- Do not implement features requiring external APIs without explicit local LLM setup
+- Do not generate fake performance numbers or citations
+- Do not create placeholder implementations without actual logic
+- Do not skip validation of reasoning quality
+- Do not hardcode solutions to test problems
+
+## Success Criteria
+1. **Functional Pipeline**: Complete ToT + Self-Consistency implementation
+2. **Measurable Improvement**: >15% accuracy improvement over baseline
+3. **Automated Optimization**: Working OPRO-style feedback loop
+4. **Comprehensive Evaluation**: All metrics tracked with statistical analysis
+5. **Reproducible Results**: Clear documentation and setup instructions
+
+## Cursor-Specific Instructions
+- Prioritize modular, testable code architecture
+- Include comprehensive error handling and logging
+- Generate meaningful variable names reflecting prompt engineering concepts
+- Suggest type hints and docstrings for all functions
+- Focus on performance monitoring and metric collection
+- Implement proper separation between reasoning engine and evaluation components
