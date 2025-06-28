@@ -1,0 +1,82 @@
+[
+  {
+    "name": "GitHub Copilot",
+    "strengths": ["Code completion", "Boilerplate code generation", "Works in many IDEs"],
+    "supported_languages": ["Python", "JavaScript", "TypeScript", "Ruby", "Go", "Java", "C++"],
+    "integrations": ["VS Code", "Neovim", "JetBrains IDEs", "Visual Studio"],
+    "ideal_use_cases": ["General purpose coding", "Speeding up development", "Learning new languages"],
+    "description": "An AI pair programmer that offers autocomplete-style suggestions as you code."
+  },
+  {
+    "name": "Cursor",
+    "strengths": ["AI-powered code editing", "Chat with your codebase", "Code generation from prompts"],
+    "supported_languages": ["Python", "JavaScript", "TypeScript", "Java", "Go", "All major languages"],
+    "integrations": ["VS Code extension model", "Fork of VS Code"],
+    "ideal_use_cases": ["Refactoring code", "Understanding complex codebases", "Building features with AI guidance"],
+    "description": "An AI-first code editor designed for pair-programming with AI."
+  },
+  {
+    "name": "Amazon CodeWhisperer",
+    "strengths": ["Security scanning", "Reference tracking for generated code", "Optimized for AWS"],
+    "supported_languages": ["Python", "Java", "JavaScript", "TypeScript", "C#", "Go", "Ruby", "PHP", "Rust", "Scala", "Kotlin", "SQL"],
+    "integrations": ["VS Code", "JetBrains IDEs", "AWS Cloud9", "AWS Lambda console"],
+    "ideal_use_cases": ["Developing on AWS", "Ensuring code security", "Projects requiring attribution for open source"],
+    "description": "A machine learning (ML)–powered service that helps improve developer productivity by generating code recommendations based on developers' comments in natural language and code in the integrated development environment (IDE)."
+  },
+  {
+    "name": "Replit AI",
+    "strengths": ["In-browser IDE", "Collaborative coding", "Quick prototyping", "Code generation and explanation"],
+    "supported_languages": ["Over 50 languages", "Python", "JavaScript", "HTML/CSS"],
+    "integrations": ["Replit IDE"],
+    "ideal_use_cases": ["Learning to code", "Building and deploying web apps quickly", "Collaborative projects", "Prototyping ideas"],
+    "description": "Replit's AI features within its collaborative, in-browser IDE. It can explain code, generate code, and help you build projects faster."
+  },
+  {
+    "name": "V0",
+    "strengths": ["Autonomous coding", "Full-stack development", "Project management", "Debugging"],
+    "supported_languages": ["Python", "JavaScript", "TypeScript", "HTML/CSS", "SQL"],
+    "integrations": ["Terminal", "VS Code", "GitHub"],
+    "ideal_use_cases": ["Building full applications autonomously", "Complex project development", "Rapid prototyping"],
+    "description": "An autonomous AI software engineer that can understand, plan, and develop entire applications with minimal human intervention."
+  },
+  {
+    "name": "Windsurf",
+    "strengths": ["Code generation", "Contextual understanding", "Reasoning", "Multi-file project understanding"],
+    "supported_languages": ["Python", "JavaScript", "TypeScript", "Go", "Java", "C++", "Rust"],
+    "integrations": ["Web interface", "API"],
+    "ideal_use_cases": ["Complex problem solving", "Understanding large codebases", "Technical interviews", "Algorithm design"],
+    "description": "A powerful AI coding assistant focused on deep reasoning and understanding of complex programming tasks."
+  },
+  {
+    "name": "Lovable",
+    "strengths": ["Interactive coding", "Visual development", "Real-time collaboration", "Intuitive interface"],
+    "supported_languages": ["JavaScript", "TypeScript", "Python", "HTML/CSS"],
+    "integrations": ["Web interface", "GitHub", "VS Code extension"],
+    "ideal_use_cases": ["Frontend development", "UI/UX design", "Collaborative coding sessions", "Teaching programming"],
+    "description": "An AI-powered visual development environment that makes coding more intuitive and collaborative."
+  },
+  {
+    "name": "Devin",
+    "strengths": ["Autonomous development", "Self-debugging", "Full project lifecycle", "Research capabilities"],
+    "supported_languages": ["Python", "JavaScript", "TypeScript", "Ruby", "Go", "Java"],
+    "integrations": ["Terminal", "Web interface", "GitHub", "CI/CD pipelines"],
+    "ideal_use_cases": ["End-to-end project development", "Complex bug fixing", "Technical research", "System design"],
+    "description": "An AI software engineer that can autonomously develop, test, and deploy software projects."
+  },
+  {
+    "name": "Codeium",
+    "strengths": ["Fast code completion", "Free tier available", "Privacy-focused", "Cross-IDE support"],
+    "supported_languages": ["Python", "JavaScript", "TypeScript", "Java", "C++", "Go", "Ruby", "PHP", "C#"],
+    "integrations": ["VS Code", "JetBrains IDEs", "Vim/Neovim", "Emacs", "Jupyter"],
+    "ideal_use_cases": ["Everyday coding", "Enterprise environments with privacy concerns", "Teams on a budget"],
+    "description": "A modern, privacy-focused AI coding assistant with a generous free tier and enterprise features."
+  },
+  {
+    "name": "Tabnine",
+    "strengths": ["Local AI models", "Privacy", "Team collaboration", "Custom models"],
+    "supported_languages": ["Python", "JavaScript", "TypeScript", "Java", "C++", "PHP", "C#", "Ruby", "Go"],
+    "integrations": ["VS Code", "JetBrains IDEs", "Vim", "Sublime Text", "Eclipse"],
+    "ideal_use_cases": ["Enterprise development", "Teams with privacy requirements", "Customized coding assistance"],
+    "description": "An AI assistant that offers both cloud and local AI models, with strong privacy features for enterprise teams."
+  }
+]
