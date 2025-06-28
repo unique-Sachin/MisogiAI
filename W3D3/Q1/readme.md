@@ -4,6 +4,14 @@ An interactive Streamlit web app that allows users to estimate the latency, memo
 
 ---
 
+## 🌐 Live Demo
+
+You can access the deployed application here:
+
+**[https://llm-inference-calculator.streamlit.app/](https://llm-inference-calculator.streamlit.app/)**
+
+---
+
 ## 🚀 Features
 
 *   **Model Comparison**: Choose between 7B, 13B, or GPT-4 models.
