@@ -1,8 +1,13 @@
 import streamlit as st
 import json
+import os
+
+# Construct an absolute path to the JSON file relative to the script's location
+script_dir = os.path.dirname(os.path.abspath(__file__))
+json_path = os.path.join(script_dir, 'model_data.json')
 
 # Load data from JSON file
-with open('model_data.json', 'r') as f:
+with open(json_path, 'r') as f:
     data = json.load(f)
 
 MODEL_INFO = data['MODEL_INFO']
