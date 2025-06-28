@@ -1,0 +1,113 @@
+🧾 Product Requirements Document (PRD)
+
+📌 Product Name:
+LLM Inference Calculator
+
+🧠 Objective:
+Build an interactive Streamlit web app that allows users to estimate the latency, memory usage, cost per request, and hardware compatibility of various LLM models (7B, 13B, GPT-4) based on input parameters.
+
+This tool is intended for educational, research, and practical engineering estimation purposes — helping developers or product managers choose optimal LLM setups.
+
+🔍 Problem Statement
+LLM inference cost and performance depend on multiple variables such as model size, input tokens, batch size, and hardware. These factors are often complex to estimate. The goal is to build a simple calculator that lets users input key parameters and view realistic estimates of:
+
+- Latency
+- Memory Usage
+- Cost per Request
+- Hardware Compatibility
+
+🎯 Features & Requirements
+
+✅ Core Features
+| Feature                             | Description                                                                 |
+|------------------------------------|-----------------------------------------------------------------------------|
+| Model Comparison                   | Choose from 7B, 13B, or GPT-4                                               |
+| Input Fields                       | Model size, tokens, batch size, hardware type, deployment mode             |
+| Output Metrics                     | Estimated latency, memory usage, cost per request, hardware compatibility  |
+| Use Case Scenarios                 | Predefined use cases to simulate real-world behavior                        |
+| Responsive UI                      | Built using Streamlit for quick deployment and accessibility                |
+| Formula-based Estimation           | Internal logic uses heuristics/tables to estimate output values             |
+
+🛠️ Technology Stack
+
+| Component     | Technology       |
+|---------------|------------------|
+| Frontend      | Streamlit        |
+| Backend Logic | Python           |
+| Hosting       | Streamlit Cloud / Local |
+| Model Info    | Manual data tables or JSON reference |
+
+🧾 Input Fields
+
+{
+  model_size: "7B" | "13B" | "GPT-4",
+  tokens: int,  # e.g., 500
+  batch_size: int,  # e.g., 4
+  hardware_type: "T4" | "A100" | "CPU" | "TPU",
+  deployment_mode: "cloud" | "on-premise" | "serverless"
+}
+
+📤 Output Fields
+
+{
+  latency: "1.2s",
+  memory_usage: "18 GB",
+  cost_per_request: "$0.0023",
+  hardware_compatible: "Yes/No"
+}
+
+📈 Assumptions and Formula Logic
+
+- Latency ∝ tokens × batch_size ÷ processing_rate (varies by hardware & model)
+- Memory usage ∝ model_size + tokens × batch_size × memory_factor
+- Cost = (latency × hourly_cost_of_hardware) ÷ 3600
+- Hardware compatibility is checked using a compatibility matrix
+
+Example (Pseudo-Values):
+
+MODEL_INFO = {
+  "7B": { "base_memory": 12, "tokens_per_sec": { "A100": 4000, "T4": 1500 } },
+  "13B": { "base_memory": 24, "tokens_per_sec": { "A100": 3000, "T4": 800 } },
+  "GPT-4": { "base_memory": 50, "tokens_per_sec": { "A100": 1000 } }
+}
+
+HARDWARE_COST = { "A100": 3.0, "T4": 0.5, "CPU": 0.1 }
+
+📊 Scenario Use Cases (Sample)
+
+| Use Case             | Description                                      |
+|----------------------|--------------------------------------------------|
+| Chatbot              | 1 user input, 1 output, low latency required     |
+| Summarizer           | 1000 token input, medium batch size              |
+| Batch QA System      | 10 requests together, focus on cost-efficiency   |
+
+🖼️ UI Layout (Streamlit)
+
+1. Sidebar
+   - Dropdowns: Model Size, Hardware, Deployment Mode
+   - Number Inputs: Tokens, Batch Size
+
+2. Main Panel
+   - Output Cards: Latency, Memory, Cost, Compatibility
+   - Optional: Use Case Presets (buttons)
+
+🧪 Testing Strategy
+
+- Unit Test: Estimation logic per model/hardware combo
+- Integration Test: Input → Output path in Streamlit
+- Edge Cases: Very large tokens, batch sizes, unsupported combos
+
+📦 Deliverables
+
+1. Python + Streamlit code (inference_calculator.py)
+2. Static JSON for model/hardware metadata
+3. Documentation / Readme
+4. Optional: Hosted demo on Streamlit Cloud
+
+
+✅ Success Criteria
+
+- App works on real inputs and gives consistent outputs
+- Clearly shows latency, memory, and cost differences
+- Easy to understand and run (no setup complexity)
+- Useful for students, engineers, and PMs comparing LLM setups

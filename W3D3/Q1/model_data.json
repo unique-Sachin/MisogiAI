@@ -1,0 +1,58 @@
+{
+    "MODEL_INFO": {
+        "7B": {
+            "base_memory": 14,
+            "tokens_per_sec": {
+                "A100": 4000,
+                "T4": 1500,
+                "CPU": 50,
+                "TPU": 3500
+            }
+        },
+        "13B": {
+            "base_memory": 26,
+            "tokens_per_sec": {
+                "A100": 3000,
+                "T4": 800,
+                "CPU": 25,
+                "TPU": 2500
+            }
+        },
+        "GPT-4": {
+            "base_memory": 80,
+            "tokens_per_sec": {
+                "A100": 1000,
+                "T4": 300,
+                "CPU": 5,
+                "TPU": 800
+            }
+        }
+    },
+    "HARDWARE_COST": {
+        "A100": 3.0,
+        "T4": 0.5,
+        "CPU": 0.1,
+        "TPU": 2.0
+    },
+    "LATENCY_MULTIPLIER": {
+        "cloud": 1.1,
+        "on-premise": 0.95,
+        "serverless": 1.2
+    },
+    "COST_MULTIPLIER": {
+        "cloud": 1.2,
+        "on-premise": 0.7,
+        "serverless": 1.0
+    },
+    "MEMORY_FACTOR": {
+        "7B": 0.015,
+        "13B": 0.018,
+        "GPT-4": 0.025
+    },
+    "HARDWARE_MEMORY": {
+        "A100": 80,
+        "T4": 16,
+        "CPU": 256,
+        "TPU": 32
+    }
+} 
