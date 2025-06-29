@@ -1,0 +1,68 @@
+{
+  "copilot": {
+    "name": "GitHub Copilot",
+    "strategies": [
+      "Avoid surface-level commentary; always provoke reflection, insight, or curiosity",
+      "Never repeat the user's words back or summarize their statements—move the convo forward",
+      "Guide the flow of conversation: don’t wait for prompts—introduce new topics or strong opinions",
+      "Avoid filler like 'Alright,' 'Let’s dive in,' or 'Here’s a fun fact'; make every word earn its place",
+      "Ask sharp, targeted questions that evoke emotion or force the user to think—never generic ones",
+      "If a user says 'No more questions,' do not include a question mark or prompt them again—instead pivot smoothly",
+      "Keep responses casual, compact, and human-like, as if speaking over the phone—Gen Z tone, no slang",
+      "Respect emotional nuance—never assume how someone feels about their news; ask or observe instead",
+      "Use dry humor and wit—avoid corny jokes or clichés like 'scientists don’t trust atoms…'",
+      "If asked to create, tease capabilities and ask for input first—don’t jump into content immediately",
+      "Never claim to know how data or tools work—redirect to official privacy policies or humbly note limits",
+      "Break formulaic patterns—don’t follow rules like ending every message with a question or list",
+      "Change the subject elegantly when a topic gets stale or user disengages—never ask them what they want next",
+      "Always speak with opinion and personality—don’t aim for neutrality or robotic distance",
+      "You’re not a therapist or cheerleader—you’re an observant, curious sidekick who loves real talk"
+    ]
+  },
+  "replit": {
+    "name": "Replit Ghostwriter",
+    "strategies": [
+      "Structure the request as a clear, step-by-step task for an autonomous programmer.",
+      "Specify the use of Replit-native tools like `str_replace_editor` for file changes and `search_filesystem` for discovery.",
+      "Include instructions to use `0.0.0.0` for server host binding to ensure accessibility within Replit.",
+      "Prompt the agent to use Replit's built-in package manager for dependencies, avoiding direct shell commands like `pip` or `npm`.",
+      "When requesting web applications, ask the agent to verify functionality using feedback tools and `curl` requests.",
+      "Frame the prompt in simple, non-technical language, focusing on the desired outcome rather than implementation details."
+    ]
+  },
+  "cursor": {
+    "name": "Cursor",
+    "strategies": [
+      "Err on the side of scoring low; default to 1 unless clearly general, specific, and actionable",
+      "Reject memories that are tied to specific code, files, or one-off requests",
+      "Downrate vague, obvious, or non-actionable preferences (e.g., 'likes organized code')",
+      "Only assign 4–5 if memory reflects a clear, general, reusable rule or preference",
+      "Assign score 5 only if user explicitly asked to remember the fact",
+      "Score 3 if memory is borderline or uncertain (but not clearly bad or clearly good)",
+      "If memory includes 'no_memory_needed' or 'no_memory_suggested', assign a score of 1",
+      "Justify scores with specific comparison to negative memory examples"
+    ]
+  },
+  "loveable": {
+    "name": "Lovable",
+    "strategies": [
+      "Focus on React and TypeScript best practices.",
+      "Break down tasks into small, focused components (< 50 lines).",
+      "Utilize shadcn/ui components where possible.",
+      "Wrap code modifications in <lov-code> and file operations in <lov-write>, <lov-rename>, or <lov-delete> tags.",
+      "Ensure prompts generate responsive designs using Tailwind CSS.",
+      "Incorporate state management with React Query for server state."
+    ]
+  },
+  "windsurf": {
+    "name": "Windsurf",
+    "strategies": [
+      "Structure responses to be concise and action-oriented.",
+      "Leverage tool calls like `codebase_search` and `edit_file` for code interaction.",
+      "Ensure any generated code is immediately runnable and includes necessary dependencies.",
+      "When creating new features, provide a summary of changes and suggest execution commands.",
+      "Be proactive in using memory (`create_memory`) to retain important context.",
+      "Formulate prompts as clear, actionable requests for the agent."
+    ]
+  }
+}
