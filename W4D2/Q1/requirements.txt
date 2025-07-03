@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+transformers
+torch
+spacy
+textstat
+scikit-learn
+pydantic
+filelock
+pytest
+pytest-cov 
