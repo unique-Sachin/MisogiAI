@@ -38,7 +38,13 @@ class Word2VecEmbedder:
     """Average pre-trained Word2Vec vectors (GoogleNews 300d)."""
 
     def __init__(self):
-        import gensim.downloader as api  # type: ignore
+        try:
+            import gensim.downloader as api  # type: ignore
+        except ModuleNotFoundError as e:
+            raise RuntimeError(
+                "gensim is not installed (or incompatible with Python 3.13). "
+                "Word2Vec embedding is disabled for now."
+            ) from e
 
         self.model = api.load("word2vec-google-news-300")
         self.dim = self.model.vector_size
