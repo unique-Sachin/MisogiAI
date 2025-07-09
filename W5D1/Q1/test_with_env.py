@@ -5,12 +5,7 @@ import os
 import sys
 from pathlib import Path
 
-# Set environment variables directly
-os.environ["OPENAI_API_KEY"] = "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"
-os.environ["EMBEDDING_MODEL"] = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
-os.environ["LLM_MODEL"] = "gpt-4o-mini"
-os.environ["CHROMA_PERSIST_DIRECTORY"] = "./medical_vector_db"
-os.environ["TOKENIZERS_PARALLELISM"] = "false"
+
 
 # Add the src directory to the path
 sys.path.insert(0, str(Path(__file__).parent / "src"))
