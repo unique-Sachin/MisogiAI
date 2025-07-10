@@ -1,0 +1,96 @@
+# RAG System Test Queries
+# 60 total queries: 20 per intent category (technical, billing, feature_request)
+# Format: INTENT: query text
+
+# ================================================================
+# TECHNICAL INTENT QUERIES (20 queries)
+# ================================================================
+
+technical: How do I reset my password?
+technical: I forgot my password, what should I do?
+technical: The password reset email isn't coming through
+technical: What are the password requirements for creating a new password?
+technical: How do I enable two-factor authentication on my account?
+technical: I'm having trouble logging into my account
+technical: How do I change my email address?
+technical: My account verification email never arrived
+technical: How do I update my profile information?
+technical: I can't access my account after changing my password
+technical: How do I set up my account for the first time?
+technical: What information is required to create an account?
+technical: How do I verify my phone number?
+technical: I'm getting an error when trying to log in
+technical: How do I delete my account permanently?
+technical: Can I recover a deleted account?
+technical: How do I change my username?
+technical: My authenticator app isn't working with 2FA
+technical: How do I backup my two-factor authentication codes?
+technical: I lost access to my 2FA device, how do I recover my account?
+
+# ================================================================
+# BILLING INTENT QUERIES (20 queries)
+# ================================================================
+
+billing: How much does the Pro plan cost?
+billing: What payment methods do you accept?
+billing: I was charged twice this month, why?
+billing: How do I update my credit card information?
+billing: When will my subscription renew?
+billing: Can I get a refund for my subscription?
+billing: How do I cancel my subscription?
+billing: What's the difference between monthly and annual billing?
+billing: I need an invoice for my recent payment
+billing: My payment failed, what should I do?
+billing: How do I upgrade from Free to Pro plan?
+billing: Can I downgrade my subscription plan?
+billing: Do you offer discounts for annual subscriptions?
+billing: How do I add a new payment method?
+billing: What happens if my payment fails?
+billing: I want to dispute a charge on my account
+billing: How do I change my billing address?
+billing: Can I pay with PayPal instead of credit card?
+billing: What's included in the Enterprise plan?
+billing: How do I view my billing history?
+
+# ================================================================
+# FEATURE REQUEST INTENT QUERIES (20 queries)
+# ================================================================
+
+feature_request: Can you add a dark mode to the interface?
+feature_request: I would like to see better mobile support
+feature_request: Please add GraphQL API support
+feature_request: Can you implement bulk data import functionality?
+feature_request: I need better search filters in the dashboard
+feature_request: Please add Slack integration
+feature_request: Can you add support for custom themes?
+feature_request: I want to see real-time notifications
+feature_request: Please improve the mobile app experience
+feature_request: Can you add keyboard shortcuts for navigation?
+feature_request: I need better accessibility features
+feature_request: Please add export functionality for reports
+feature_request: Can you implement single sign-on (SSO)?
+feature_request: I want to see advanced analytics features
+feature_request: Please add webhook support for integrations
+feature_request: Can you add multi-language support?
+feature_request: I need better API rate limiting options
+feature_request: Please add drag-and-drop file upload
+feature_request: Can you implement team collaboration features?
+feature_request: I want to see customizable dashboard widgets
+
+# ================================================================
+# QUERY STATISTICS
+# ================================================================
+# Total queries: 60
+# Technical queries: 20
+# Billing queries: 20
+# Feature request queries: 20
+#
+# Coverage areas:
+# - Account management and authentication
+# - Password and security issues
+# - Billing and subscription management
+# - Payment processing and refunds
+# - UI/UX improvements
+# - API and integration enhancements
+# - Mobile and accessibility features
+# - Advanced functionality requests 
