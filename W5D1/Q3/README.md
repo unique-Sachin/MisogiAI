@@ -1,174 +1,161 @@
-# Financial Intelligence RAG System
+# Financial-Intel RAG Service
 
-A production-ready Retrieval-Augmented Generation (RAG) platform that provides real-time insights from corporate financial documents. It combines a high-performance vector search (Pinecone) with OpenAI’s GPT-4o-mini for answer synthesis, Redis-backed caching, asynchronous FastAPI endpoints, and Celery-powered ingestion workers.
+A **retrieval-augmented generation (RAG)** micro-service that turns unstructured financial documents into an interactive Q&A experience.
 
----
-
-## Table of Contents
-1. [Features](#features)
-2. [Architecture](#architecture)
-3. [Quick Start](#quick-start)
-4. [Environment Variables](#environment-variables)
-5. [Manual Testing Guide](#manual-testing-guide)
-6. [Running the Test Suite](#running-the-test-suite)
-7. [Project Layout](#project-layout)
-8. [Roadmap](#roadmap)
+* 💡 FastAPI + Uvicorn – HTTP API
+* 🗄️ Pinecone – vector database
+* 🧠 Sentence-Transformers – embeddings (`all-MiniLM-L6-v2`, 384-d)
+* 📝 OpenAI (gpt-4o-mini by default) – answer generation
+* ⚙️ Celery + Redis – background ingestion pipeline
+* 🐳 Docker Compose – one-command deployment
 
 ---
 
-## Features
-* **Document Ingestion** – Celery tasks parse PDFs/HTML, chunk text, embed with `Qwen3-Embedding-0.6B` (sentence-transformers), and upsert to Pinecone.
-* **Semantic Querying** – Encodes questions, retrieves top-K relevant chunks, and synthesises answers with GPT-4o-mini.
-* **Intelligent Caching** – Redis keys (`query_result:{sha256}`) with TTLs for real-time (1 h) and historical (24 h) data.
-* **Async FastAPI** – `/api/v1/*` endpoints with Prometheus metrics exposed at `/metrics`.
-* **Monitoring** – Out-of-the-box Prometheus metrics; ready for Grafana dashboards.
-* **Docker-Compose** – One-command spin-up of API, worker, and Redis.
-* **Test Suite** – Pytest unit tests + sample integration tests (extensible).
+## 1 Quick start (Docker)
 
----
-
-## Architecture
-```mermaid
-flowchart LR
-    subgraph Ingestion
-        UPLOAD[Upload API / Batch CLI] --> TASK{Celery Task}
-        TASK --> PARSER[PDF / HTML Parser]
-        PARSER --> CHUNKER[Chunker]
-        CHUNKER --> EMBED[Qwen3-Embedding-0.6B]
-        EMBED --> PC[→ Pinecone]
-    end
-
-    subgraph Query
-        USER[Client Query] --> API
-        API --> CACHE{Redis Cache}
-        CACHE -- miss --> QENC[Embeddings]
-        QENC --> PC
-        PC --> GPT[GPT-4o-mini]
-        GPT --> CACHE
-        CACHE --> API
-        API --> USER
-    end
-```
-
----
-
-## Quick Start
-### 1. Prerequisites
-* **Docker & Docker Compose** (v2+ recommended)
-* Pinecone & OpenAI API keys
-
-### 2. Clone & Configure
 ```bash
-git clone <repo> financial-rag
-cd financial-rag
-cp .env.example .env  # edit with your keys
-```
-`./.env` (example):
-```dotenv
-PINECONE_API_KEY=your_pinecone_key
-PINECONE_ENVIRONMENT=us-east1-gcp
-OPENAI_API_KEY=your_openai_key
+# 1. Clone and enter the repo
+$ git clone <repo-url> && cd Q3
+
+# 2. Create a .env file with your secrets
+$ cp .env.example .env        # edit values
+
+# 3. Build & run everything
+$ docker compose up --build   # api  ➕ worker ➕ redis
 ```
 
-### 3. Build & Run
-```bash
-docker compose up --build
-```
-The stack launches:
-* **api** – FastAPI on `http://localhost:8000`
-* **worker** – Celery worker
-* **redis** – Cache & broker
+The API will be available at <http://localhost:8000> (Swagger UI at `/docs`).
 
----
-
-## Environment Variables
-| Variable | Default | Description |
+### Required environment variables
+| Variable | Example | Description |
 |----------|---------|-------------|
-| `PINECONE_API_KEY` | – | Pinecone service key |
-| `PINECONE_ENVIRONMENT` | `us-east1-gcp` | Cloud & region |
-| `PINECONE_INDEX_NAME` | `financial-intel-index` | Vector index name |
-| `OPENAI_API_KEY` | – | OpenAI key for GPT-4o-mini |
-| `REDIS_BROKER_URL` | `redis://redis:6379/0` | Broker + cache URL |
-| `TTL_REALTIME` | `3600` | TTL for real-time queries |
-| `TTL_HISTORICAL` | `86400` | TTL for historical data |
+| `PINECONE_API_KEY`      | `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx` | Pinecone secret key |
+| `PINECONE_ENVIRONMENT`  | `us-east1-gcp` | Region / cloud where your index lives |
+| `PINECONE_INDEX_NAME`   | `financial-intel-index` | Existing index name (must be **created manually** with dimension **384**) |
+| `PINECONE_DIMENSION`    | `384` | Vector size (must match embedding model) |
+| `OPENAI_API_KEY`        | `sk-…` | Key for chat completion model |
+| `REDIS_BROKER_URL`      | `redis://redis:6379/0` | Celery broker URI |
+| `CELERY_QUEUE`          | `financial_rag` | Worker queue name |
+
+> ℹ️ The repo ships with sensible defaults; anything missing will raise a helpful error at start-up.
+
+### File storage
+Uploaded documents are kept in a shared Docker volume and mounted at `/tmp/financial_docs` inside both the **api** and **worker** containers. Override with `UPLOAD_DIR` if desired.
 
 ---
 
-## Manual Testing Guide
-Below are cURL examples; any REST client (Postman, Insomnia, etc.) works.
+## 2 Running locally (no Docker)
 
-### 1. Health Check
 ```bash
-curl http://localhost:8000/api/v1/health
-# → {"status":"ok"}
+# 1. Python 3.11+ & virtualenv
+$ python -m venv .venv && source .venv/bin/activate
+
+# 2. Install deps
+$ pip install -r requirements.txt
+
+# 3. Export the same env vars as above (or create .env)
+
+# 4. Start services
+$ uvicorn app.main:app --reload               # web api
+$ celery -A app.core.celery_app.celery_app \
+         worker -l info -Q financial_rag \
+         --concurrency=1                      # ingestion worker
 ```
 
-### 2. Upload a Document
-```bash
-curl -F "file=@/path/to/10K.pdf" \
-     http://localhost:8000/api/v1/documents/upload
-# → {"document_id":"<uuid>","status":"processing"}
-```
-Monitor worker logs to see ingestion progress.
+Redis must be running locally (e.g. via Docker `docker run -p 6379:6379 redis:7-alpine`).
 
-### 3. Submit a Query
+---
+
+## 3 API overview
+
+| Method | Path | Purpose |
+|--------|------|---------|
+| `GET`  | `/api/v1/health` | Liveness probe |
+| `POST` | `/api/v1/documents/upload` | Upload a PDF/TXT/… file; triggers async ingestion |
+| `POST` | `/api/v1/query` | Ask a question; returns `answer` + `sources` |
+| `GET`  | `/api/v1/embedding/status` | Ensures embedding model is loaded |
+| `GET`  | `/api/v1/pinecone/status`  | Connection + index stats (vector counts, etc.) |
+| `POST` | `/api/v1/pinecone/test_query` | Raw similarity search (debug helper) |
+
+Example query:
 ```bash
 curl -X POST http://localhost:8000/api/v1/query \
-     -H "Content-Type: application/json" \
-     -d '{
-           "question": "What was Apple\'s revenue in Q3 2024?",
-           "companies": ["AAPL"],
-           "time_range": "Q3-2024"
-         }'
+  -H "Content-Type: application/json" \
+  -d '{"question":"What was the company revenue in Q4 2023?"}'
 ```
-Response fields:
-* `answer` – natural-language answer
-* `sources` – list of `document_id`s backing the answer
-* `cached` – `true` if served from Redis cache
 
-### 4. Verify Cache
-Repeat the same `/query` request – second call should return `{ "cached": true }` and API latency will drop.
-
-### 5. Metrics
-```bash
-curl http://localhost:8000/metrics | head
+Response:
+```json
+{
+  "answer": "The company reported revenue of $1.23 B in Q4 2023.",
+  "sources": [
+    "994ac1e8-61e9-4af8-880f-b67e3a832d22"
+  ],
+  "cached": false
+}
 ```
-Scrape with Prometheus / visualize in Grafana.
 
-### 6. Run Unit Tests Locally
+---
+
+## 4 Document ingestion flow
+
+```mermaid
+flowchart TD
+    A[Upload file] -->|/documents/upload| B(Save to volume)
+    B -->|Celery task| C[Parse & extract text]
+    C --> D[Chunk (~1-2k chars)]
+    D --> E[Embed (all-MiniLM-L6-v2)]
+    E --> F[Upsert to Pinecone]
+```
+
+* **Parser** supports PDFs, text and simple HTML (extendable via `app/services/ingestion/parser.py`).
+* Each chunk is stored with metadata `{document_id, chunk_id, text}`.
+
+---
+
+## 5 Testing
+
 ```bash
-pip install -r requirements.txt  # or poetry install
 pytest -q
 ```
 
-> **Tip**: For CI, mock Pinecone & OpenAI via environment variables and dependency overrides.
+The sample test verifies the `/health` route. Extend with more cases under `tests/`.
 
 ---
 
-## Project Layout
+## 6 Troubleshooting
+
+| Symptom | Likely cause | Fix |
+|---------|--------------|-----|
+| `embedding/status` fails | Container out of memory | Increase worker memory or switch to even smaller model in `model.py` |
+| `pinecone/status` recursion error | Non-serialisable SDK objects | Already handled – update repo |
+| `/query` returns empty `sources` | Index empty or wrong dimension | Confirm vector_count > 0 and dimension = 384 |
+| `TypeError: Client.__init__(proxies=…)` | `httpx 0.27+` incompatible with OpenAI 1.30 | Requirements pin `httpx<0.27`; reinstall |
+
+---
+
+## 7 Project structure
+
 ```
-├── app/
-│   ├── api/            # FastAPI routes
-│   ├── core/           # Settings, Celery app
-│   ├── services/
-│   │   ├── embedding/  # Qwen3 model wrapper
-│   │   ├── ingestion/  # Parser, chunker, Celery tasks
-│   │   ├── vector/     # Pinecone client
-│   │   ├── cache/      # Redis cache
-│   │   └── qa/         # Retrieval & generation pipeline
-│   └── tests/          # Pytest suite
-├── docker-compose.yml
-├── Dockerfile
-└── README.md
+app/
+  api/            # FastAPI routes
+  core/           # config, celery setup
+  services/
+    embedding/    # model loader
+    ingestion/    # parser, chunker, celery tasks
+    qa/           # question-answer pipeline
+    vector/       # Pinecone client wrapper
+Dockerfile        # runtime image
+docker-compose.yml
+prd.md            # product requirements doc
+requirements.txt
 ```
 
 ---
 
-## Roadmap
-- [ ] **Batch Ingestion CLI** – import thousands of SEC filings via EDGAR.
-- [ ] **Advanced Cache Policies** – background refresh & popularity metrics.
-- [ ] **Role-based Auth** – JWT and API key support.
-- [ ] **Load Testing Harness** – k6 / Locust scripts & dashboards.
-- [ ] **CI Pipeline** – mock OpenAI/Pinecone for unit/integration tests.
+## 8 Acknowledgements
 
-Contributions & feedback welcome! Feel free to open issues or PRs. :) 
+* [Pinecone](https://www.pinecone.io/) – serverless vector DB
+* [OpenAI](https://platform.openai.com/) – GPT-4o-mini
+* [Sentence-Transformers](https://www.sbert.net/) – open-source embeddings
+* [FastAPI](https://fastapi.tiangolo.com/) – modern web framework 

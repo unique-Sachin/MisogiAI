@@ -36,6 +36,7 @@ def answer_question(
     # Encode question
     q_embedding = embedding_model.encode([question])[0]
 
+
     # Build filter based on companies/time_range if provided (placeholder)
     pc_filter = {}
     if companies:
@@ -44,11 +45,20 @@ def answer_question(
         pc_filter["quarter"] = time_range  # simplistic
 
     # Query Pinecone
-    if pc_filter:
-        results = vector_client.query(vector=q_embedding.tolist(), top_k=top_k, filter=pc_filter)
-    else:
-        results = vector_client.query(vector=q_embedding.tolist(), top_k=top_k)
-    print(results)
+
+   
+    # res = vector_client.query(vector=q_embedding.tolist(), top_k=top_k)
+    # print(f'res: {res}')
+
+    # res = vector_client.query(vector=vec, top_k=payload.top_k)
+    
+
+    # if pc_filter.get("ticker") or pc_filter.get("quarter"):
+    #     results = vector_client.query(vector=q_embedding.tolist(), top_k=top_k, filter=pc_filter)
+    # else:
+    results = vector_client.query(vector=q_embedding.tolist(), top_k=top_k)
+        # print(f'results: {results}')
+    
 
     # Extract contexts and sources
     contexts: List[str] = []
