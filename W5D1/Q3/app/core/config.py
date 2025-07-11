@@ -14,7 +14,7 @@ class Settings(BaseSettings):  # type: ignore[misc]
     pinecone_api_key: str = Field(...)
     pinecone_environment: str = Field(...)
     pinecone_index_name: str = Field("financial-intel-index")
-    pinecone_dimension: int = Field(1024)
+    pinecone_dimension: int = Field(384)  # Changed from 1024 to 384 for all-MiniLM-L6-v2 compatibility
 
     # Redis
     redis_url: str = Field("redis://localhost:6379/0")

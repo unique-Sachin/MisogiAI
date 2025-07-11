@@ -14,7 +14,7 @@ services:
       - redis
   worker:
     build: .
-    command: ["celery", "-A", "app.core.celery_app.celery_app", "worker", "-l", "info", "-Q", "financial_rag"]
+    command: ["celery", "-A", "app.core.celery_app.celery_app", "worker", "-l", "info", "-Q", "financial_rag", "--concurrency=1"]
     environment:
       - REDIS_BROKER_URL=redis://redis:6379/0
       - CELERY_QUEUE=financial_rag
@@ -22,10 +22,18 @@ services:
       - PINECONE_ENVIRONMENT=${PINECONE_ENVIRONMENT}
       - PINECONE_INDEX_NAME=${PINECONE_INDEX_NAME}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - TOKENIZERS_PARALLELISM=false
     volumes:
       - financial_docs:/tmp/financial_docs
     depends_on:
       - redis
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 1G
+    shm_size: 512m
   redis:
     image: redis:7-alpine
     ports:

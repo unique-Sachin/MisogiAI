@@ -11,6 +11,6 @@ COPY . .
 ENV PYTHONUNBUFFERED=1 \
     PINECONE_ENVIRONMENT=us-east1-gcp \
     PINECONE_INDEX_NAME=financial-intel-index \
-    PINECONE_DIMENSION=1024
+    PINECONE_DIMENSION=384
 
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"] 

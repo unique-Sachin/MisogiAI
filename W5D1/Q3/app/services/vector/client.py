@@ -25,34 +25,17 @@ class VectorMetadata(BaseModel):
 
 
 class PineconeClient:
-    """Singleton wrapper around Pinecone index (client >=3.x)."""
+    """Singleton wrapper around Pinecone index."""
 
     def __init__(self) -> None:
         settings = get_settings()
 
         # Create Pinecone client instance
-        self.pc = Pinecone(api_key=settings.pinecone_api_key)
-
-        # Derive cloud/region from environment string like "us-east1-gcp" or fallback
-        env_parts = settings.pinecone_environment.split("-")
-        if len(env_parts) >= 2:
-            cloud = env_parts[-1]
-            region = "-".join(env_parts[:-1])
-        else:
-            cloud = "aws"
-            region = settings.pinecone_environment
-
-        if settings.pinecone_index_name not in self.pc.list_indexes().names():
-            logger.info("Creating Pinecone index '%s' (dim=%s)", settings.pinecone_index_name, settings.pinecone_dimension)
-            self.pc.create_index(
-                name=settings.pinecone_index_name,
-                dimension=settings.pinecone_dimension,
-                metric="cosine",
-                spec=ServerlessSpec(cloud=cloud, region=region),
-            )
-
-        self.index = self.pc.Index(settings.pinecone_index_name)
-        logger.info("Pinecone index '%s' is ready", settings.pinecone_index_name)
+        self._pc = Pinecone(api_key=settings.pinecone_api_key)
+        
+        # Connect to the index (assumes it already exists)
+        self.index = self._pc.Index(settings.pinecone_index_name)
+        logger.info("Connected to Pinecone index '%s'", settings.pinecone_index_name)
 
     # --------------------------- Public API --------------------------- #
 

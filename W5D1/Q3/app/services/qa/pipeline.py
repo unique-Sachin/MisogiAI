@@ -4,18 +4,17 @@ from __future__ import annotations
 import logging
 from typing import Dict, List, Optional
 
-import openai  # type: ignore
+from openai import OpenAI  # type: ignore
 
 from app.core.config import get_settings
 from app.services.embedding import model as embedding_model
 from app.services.vector.client import get_vector_client
-from app.services.cache.client import get_cache_client
 
 logger = logging.getLogger(__name__)
 settings = get_settings()
 
-if settings.openai_api_key:
-    openai.api_key = settings.openai_api_key
+# Initialize OpenAI client
+openai_client = OpenAI(api_key=settings.openai_api_key) if settings.openai_api_key else None
 
 
 def answer_question(
@@ -25,14 +24,13 @@ def answer_question(
     top_k: int = 5,
 ) -> Dict[str, object]:
     """Retrieve relevant context and generate answer using GPT-4o-mini."""
-    cache = get_cache_client()
-
-    cache_key = cache.build_query_key(question, companies, time_range)
-    cached_val = cache.get(cache_key)
-    if cached_val:
-        logger.info("Cache hit for query")
-        return {**cached_val, "cached": True}
-
+    if not openai_client:
+        return {
+            "answer": "OpenAI API key not configured",
+            "sources": [],
+            "cached": False,
+        }
+    
     vector_client = get_vector_client()
 
     # Encode question
@@ -46,21 +44,32 @@ def answer_question(
         pc_filter["quarter"] = time_range  # simplistic
 
     # Query Pinecone
-    results = vector_client.query(vector=q_embedding.tolist(), top_k=top_k, filter=pc_filter if pc_filter else None)
+    if pc_filter:
+        results = vector_client.query(vector=q_embedding.tolist(), top_k=top_k, filter=pc_filter)
+    else:
+        results = vector_client.query(vector=q_embedding.tolist(), top_k=top_k)
+    print(results)
 
     # Extract contexts and sources
     contexts: List[str] = []
     sources: List[str] = []
     for match in results.matches:  # type: ignore[attr-defined]
-        metadata = match.metadata  # type: ignore[attr-defined]
-        text = metadata.get("text", "") if metadata else ""
+        metadata = getattr(match, "metadata", None)
+        logger.debug("Match %s metadata: %s", match.id, metadata)  # type: ignore[attr-defined]
+        if not metadata:
+            continue
+
+        text = metadata.get("text", "")
         contexts.append(text)
-        if metadata:
-            sources.append(metadata.get("document_id", ""))
+        doc_id = metadata.get("document_id")
+        if not doc_id:
+            # fallback to vector id prefix before ':' if present
+            doc_id = str(match.id).split(":")[0]  # type: ignore[attr-defined]
+        sources.append(str(doc_id))
 
     prompt = _build_prompt(question, contexts)
 
-    completion = openai.chat.completions.create(
+    completion = openai_client.chat.completions.create(
         model=settings.openai_model,
         messages=[{"role": "user", "content": prompt}],
         temperature=0.2,
@@ -68,20 +77,11 @@ def answer_question(
 
     answer = completion.choices[0].message.content  # type: ignore[index]
 
-    result = {
-        "answer": answer,
+    return {
+        "answer": str(answer) if answer else "",
         "sources": sources,
+        "cached": False,  # caching layer TBD
     }
-
-    # Determine TTL
-    ttl = settings.ttl_historical
-    if time_range is None:
-        ttl = settings.ttl_realtime
-
-    cache.set(cache_key, result, ttl)
-
-    result["cached"] = False
-    return result
 
 
 def _build_prompt(question: str, contexts: List[str]) -> str:
