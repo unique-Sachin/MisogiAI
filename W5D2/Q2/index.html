@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockMarket ChatHub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="app-title">StockMarket ChatHub</h1>
+                <div class="connection-status">
+                    <div class="status-indicator online" id="statusIndicator"></div>
+                    <span id="statusText">Connected</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <!-- Left Sidebar - Stock Watchlist -->
+            <aside class="sidebar sidebar-left">
+                <div class="sidebar-section">
+                    <h2 class="section-title">Stock Watchlist</h2>
+                    <div class="stock-list" id="stockList">
+                        <!-- Stock items will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h2 class="section-title">News Sentiment</h2>
+                    <div class="news-list" id="newsList">
+                        <!-- News items will be populated by JavaScript -->
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Central Chat Area -->
+            <section class="chat-container">
+                <div class="chat-header">
+                    <h2>Live Trading Discussion</h2>
+                    <div class="active-users">
+                        <span id="activeUsersCount">1,247</span> active traders
+                    </div>
+                </div>
+
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Messages will be populated by JavaScript -->
+                </div>
+
+                <div class="typing-indicator" id="typingIndicator" style="display: none;">
+                    <span class="typing-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                    <span id="typingUser">Someone</span> is typing...
+                </div>
+
+                <div class="chat-input-container">
+                    <div class="message-input-wrapper">
+                        <input type="text" id="messageInput" class="message-input form-control" placeholder="Type your message... (Press Enter to send)">
+                        <button id="sendButton" class="btn btn--primary send-button">Send</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Sidebar - AI Recommendations -->
+            <aside class="sidebar sidebar-right">
+                <div class="sidebar-section">
+                    <h2 class="section-title">AI Recommendations</h2>
+                    <div class="recommendations-list" id="recommendationsList">
+                        <!-- Recommendations will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h2 class="section-title">Performance Metrics</h2>
+                    <div class="metrics-grid">
+                        <div class="metric-item">
+                            <span class="metric-label">Active Users</span>
+                            <span class="metric-value" id="activeUsers">1,247</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Messages/min</span>
+                            <span class="metric-value" id="messagesPerMin">34</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Server Status</span>
+                            <span class="metric-value status--success" id="serverStatus">Online</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Latency</span>
+                            <span class="metric-value" id="latency">45ms</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">API Calls</span>
+                            <span class="metric-value" id="apiCalls">2,156</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h2 class="section-title">Market Analysis</h2>
+                    <div class="market-analysis">
+                        <div class="analysis-item">
+                            <span class="analysis-label">Overall Sentiment</span>
+                            <div class="sentiment-bar">
+                                <div class="sentiment-fill sentiment-positive" style="width: 65%"></div>
+                            </div>
+                            <span class="analysis-value">Bullish 65%</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- Stock Detail Modal -->
+    <div class="modal-overlay" id="stockModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalStockSymbol">AAPL</h3>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="stock-detail">
+                    <div class="price-info">
+                        <span class="current-price" id="modalPrice">$175.23</span>
+                        <span class="price-change" id="modalChange">+$2.45 (+1.42%)</span>
+                    </div>
+                    <div class="stock-chart-placeholder">
+                        <p>📈 Chart visualization would be here</p>
+                    </div>
+                    <div class="stock-info">
+                        <h4>Key Information</h4>
+                        <p id="stockInfo">Loading stock information...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
