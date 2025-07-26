@@ -4,7 +4,7 @@
 #     create_react_agent,
 # )
 # from langchain_openai import OpenAI
-# from langchain import hub
+from langchain import hub
 # from google_api.gsheet_connector import read_sheet
 # # from agent.tools import read_worksheet, filter_data, pivot_table, write_results
 # from agent.tools import get_tools
@@ -15,8 +15,18 @@ load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
 from langchain.chat_models import ChatOpenAI
 from langchain.agents import initialize_agent, AgentType
-from langchain_core.tools import tool
+from langchain.agents import AgentExecutor, create_tool_calling_agent, tool
 from pydantic import BaseModel, Field
+from langchain_core.prompts import ChatPromptTemplate
+
+prompt = ChatPromptTemplate.from_messages(
+    [
+        ("system", "You are a helpful assistant"),
+        ("placeholder", "{chat_history}"),
+        ("human", "{input}"),
+        ("placeholder", "{agent_scratchpad}"),
+    ]
+)
 
 
 def run_agent(query: str, spreadsheet_id: str, sheet_name: str):
@@ -72,17 +82,15 @@ def run_agent(query: str, spreadsheet_id: str, sheet_name: str):
     tools = [read_worksheet]
 
     llm = ChatOpenAI(temperature=0, model="gpt-4-0613", openai_api_key=api_key)
+    prompt = hub.pull("hwchase17/react")
 
-    agent = initialize_agent(
-        tools,
-        llm,
-        agent=AgentType.REACT_DESCRIPTION,
-        verbose=True,
-        handle_parsing_errors=True,
-    )
+    agent = create_tool_calling_agent(llm, tools, prompt)
+    agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
 
-    response = agent.run("Load the sheet blinkit.csv from spreadsheet 1Fq8UH529fjZ8KTz8A9d-fL8B8n1P6SRHz11XIU_2dKs")
-    print(response)
+    agent_executor.invoke({"input": "what is the value of magic_function(3)?"})
+
+  
+    # print(response)
 
 
 
