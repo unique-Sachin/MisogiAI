@@ -1,0 +1,9 @@
+langgraph
+langgraph-prebuilt
+langchain-core
+langchain-community
+langchain-openai
+langgraph-sdk
+langgraph-checkpoint-sqlite
+langsmith
+langgraph-cli[inmem]
