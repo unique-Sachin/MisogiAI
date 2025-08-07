@@ -1,0 +1,78 @@
+{
+  "name": "code-agent",
+  "displayName": "code-agent",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.102.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "code-agent.openChat",
+        "title": "Open Code Agent Chat"
+      },
+      {
+        "command": "code-agent.optimizeWidth",
+        "title": "Optimize Chat Panel Width"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "code-agent",
+          "title": "Code Agent",
+          "icon": "$(robot)"
+        }
+      ]
+    },
+    "views": {
+      "code-agent": [
+        {
+          "type": "webview",
+          "id": "code-agent.chatView",
+          "name": "Chat",
+          "when": "true"
+        }
+      ]
+    },
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "code-agent.openChat",
+          "title": "Code Agent: Open Chat"
+        },
+        {
+          "command": "code-agent.optimizeWidth",
+          "title": "Code Agent: Optimize Panel Width"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test",
+    "start-backend": "cd backend && ./start.sh",
+    "dev": "npm run compile && npm run watch"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.102.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "@typescript-eslint/eslint-plugin": "^8.39.0",
+    "@typescript-eslint/parser": "^8.39.0",
+    "eslint": "^9.32.0",
+    "typescript": "^5.9.2",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2"
+  }
+}
