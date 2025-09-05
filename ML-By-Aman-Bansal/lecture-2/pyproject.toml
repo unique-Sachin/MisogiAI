@@ -5,10 +5,11 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "ace-tools>=0.0",
+    "ace-tools-open>=0.1.0",
     "matplotlib>=3.10.6",
     "openpyxl>=3.1.5",
     "pandas>=2.3.2",
     "seaborn>=0.13.2",
     "termplotlib>=0.3.9",
+    "typing-extensions>=4.15.0",
 ]
